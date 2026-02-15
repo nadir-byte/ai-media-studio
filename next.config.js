@@ -12,6 +12,10 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
   },
+  // Force clean builds - disable persistent caching
+  generateBuildId: async () => {
+    return 'build-' + Date.now();
+  },
 }
 
 module.exports = nextConfig
