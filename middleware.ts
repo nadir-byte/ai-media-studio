@@ -1,12 +1,9 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
 
-const isProtectedRoute = createRouteMatcher(['/dashboard(.*)'])
-
-export default clerkMiddleware((auth, req) => {
-  if (isProtectedRoute(req)) {
-    auth().protect()
-  }
-})
+export function middleware(request: NextRequest) {
+  return NextResponse.next()
+}
 
 export const config = {
   matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
