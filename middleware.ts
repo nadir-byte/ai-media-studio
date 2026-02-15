@@ -10,21 +10,14 @@ const isPublicRoute = createRouteMatcher([
   '/pricing/self-hosted',
 ])
 
-export default clerkMiddleware(async (auth, req) => {
+export default clerkMiddleware((auth, req) => {
   // Public routes don't need auth
   if (isPublicRoute(req)) {
     return
   }
 
-  // Check if user is authenticated - Clerk handles the rest
-  const { userId } = auth()
-  if (!userId) {
-    // Let Clerk handle the auth redirect
-    return
-  }
-
-  // User is authenticated, let them through
-  // Subscription checks happen in page components, not middleware
+  // Protected routes - Clerk will handle auth
+  auth().protect()
 })
 
 export const config = {
